@@ -1,0 +1,7 @@
+Required files
+Required libraries
+pip install keyboard
+pip install pynput
+pip install pyautogui
+pip install pydub
+pip install psutil
