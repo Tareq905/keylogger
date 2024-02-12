@@ -22,8 +22,8 @@ def take_screenshot():
     pyautogui.screenshot(screenshot_path)
 
 def record_audio():
-    sample_rate = 400  # 16 kHz sample rate
-    seconds = 5  # Duration of the recording in seconds
+    sample_rate = 400  
+    seconds = 5  
 
     audio = pydub.AudioSegment.empty()
 
