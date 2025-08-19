@@ -1,4 +1,4 @@
-# Cybersecurity Awareness Tool: Keylogging Simulation & Detection
+# Keylogging Simulation & Detection
 
 ## Overview
 
